@@ -6,7 +6,37 @@
         xmlns:local="clr-namespace:InterviewTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock Padding="2" Margin="5" Text="{Binding DbMessage}" />
+        </StatusBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Margin="5" Padding="5" HorizontalContentAlignment="Center" Content="Sensors" />
+            <ItemsControl Grid.Column="0" Grid.Row="1" Margin="5" Padding="5" ItemsSource="{Binding Sensors, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:SensorView />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Label Grid.Column="1" Grid.Row="0" Margin="5" Padding="5" HorizontalContentAlignment="Center" Content="DB Data" />
+            <ListBox Grid.Column="1" Grid.Row="1" Margin="5" Padding="5"
+                     VerticalContentAlignment="Top"  
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ScrollViewer.CanContentScroll="False"
+                     ItemsSource="{Binding Data, Mode=OneWay}" />
+        </Grid>
+    </DockPanel>
 
-    </Grid>
 </Window>
